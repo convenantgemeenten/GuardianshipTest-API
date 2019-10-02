@@ -1,0 +1,77 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Guardianship Test Service
+  license:
+    name: MIT
+servers:
+  - url: https://demo.convenantgemeenten.nl/guardianshiptest
+paths:
+  /:
+    post:
+      operationId: create
+      description: Returns a boolean result to indicate if the guardianship test is positive
+      summary: Executes an guardianship test to validate if subject is under legal restraint on a certain date
+      requestBody:
+        description: Callback payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/GuardianshipTestRequest'
+      responses:
+        '200':
+          description: guardianshiptest response
+          content:
+            '*/*':
+              schema:
+                "$ref": "#/components/schemas/GuardianshipTest"
+    get:
+      operationId: list
+      description: Query registered or executed agetests
+      responses:
+        '200':
+          description: List of agetests
+          content:
+            'application/json':
+              schema:
+                type: "array"
+                items: {
+                  $ref: "#/components/schemas/GuardianshipTest"
+                }
+components:
+  schemas:
+    GuardianshipTestRequest:
+      type: object
+      required:
+        - subject
+      properties:
+        subject:
+          type: string
+        validOn:
+          type: string
+          format: date
+    GuardianshipTest:
+      type: object
+      properties:
+        id:
+          type: string
+        subject:
+          type: string
+        validOn:
+          type: string
+          format: date
+        executedOn:
+          type: string
+          format: datetime
+        result:
+          type: boolean
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
