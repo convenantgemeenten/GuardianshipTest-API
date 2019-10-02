@@ -1,0 +1,10 @@
+*.class
+*.log
+target
+node_modules
+
+/package-lock.json
+/.idea/
+
+*.303
+secrets.conf
