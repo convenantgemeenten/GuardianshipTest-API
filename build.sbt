@@ -118,7 +118,7 @@ lazy val service = (project in file("service"))
     termTimeout := 10,
     dockerUsername := Some("convenantgemeenten"),
     maintainer in Docker := "Thijs Broersen",
-    packageName in Docker := name.value
+    packageName in Docker := "guardianshiptest-" + name.value
   )
 
 val makeSettingsYml = Def.task {
